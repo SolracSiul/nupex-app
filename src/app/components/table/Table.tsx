@@ -1,7 +1,9 @@
 "use client"
 import axiosFetch from '@/app/axios/config';
+import Link from 'next/link';
 import React from 'react'
 import { useEffect, useState } from 'react'
+
 
 export interface FileData {
     _id: string;
@@ -17,7 +19,7 @@ export interface GetFilesResponse {
 
 function Table() {
     const [allFile, setAllFile] = useState<FileData[] | null>(null);
-
+   
   useEffect(() => {
     getFiles();
   }, []);
@@ -34,6 +36,10 @@ function Table() {
   const viewPDf = (pdf: String) =>{
     window.open(`http://localhost:3001/files/${pdf}`, "_blank","noreferrer")
   }
+  const changeUrl = (link: String) =>{
+    console.log('oi', link)
+    //router.push(`/history/${link}`)
+  }
 
   return (
     <div className="max-w-[1200px] mt-6">
@@ -49,12 +55,12 @@ function Table() {
             <tbody className="text-cyan-300">
                 {allFile ? (
                     allFile.map((file) =>(
-                        <tr key={file._id} className='bg-gray-800 cursor-pointer hover:bg-gray-600' onClick={() => viewPDf(file.file)}>
-                            <td className='border px-4 py-2'>{file._id.slice(-3)}</td>
-                            <td className='border px-4 py-2'>{file.title}</td>
-                            <td className='border px-4 py-2'>{file.file}</td>
-                            <td className='border px-4 py-2 text-[#bbb0b0]'>Em analíse</td>
-                        </tr>
+                            <tr key={file._id} className='bg-gray-800 cursor-pointer hover:bg-gray-600' onClick={() => changeUrl(file._id)}>
+                                <td className='border px-4 py-2'>{file._id.slice(-3)}</td>
+                                <td className='border px-4 py-2'>{file.title}</td>
+                                <td className='border px-4 py-2'>{file.file}</td>
+                                <td className='border px-4 py-2 text-[#bbb0b0]'>Em analíse</td>
+                            </tr>                        
                     ))
                 ):(
                     <tr>
