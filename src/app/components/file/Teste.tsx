@@ -11,11 +11,11 @@ interface UserOwn {
 function Teste({ name, email, id }: UserOwn) {
     const [title, setTitle] = useState("");
     const [comentario, setComentario] = useState("");
-    const [fileName, setFileName] = useState<File | null>(null);
+    const [file, setFile] = useState<File | null>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setFileName(e.target.files[0]);
+            setFile(e.target.files[0]);
         }
     };
 
@@ -24,9 +24,9 @@ function Teste({ name, email, id }: UserOwn) {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("comentario", comentario);
-        formData.append("fileName", fileName as Blob);
+        formData.append("file", file as Blob);
 
-        console.log(title, comentario, fileName);
+        console.log(title, comentario, file);
 
         try {
             const responseFile = await axiosFetch.post("/send", formData, {
@@ -36,7 +36,7 @@ function Teste({ name, email, id }: UserOwn) {
             console.log(responseFile);
             setTitle("");
             setComentario("");
-            setFileName(null);
+            setFile(null);
 
             alert("Arquivo enviado com sucesso!");
         } catch (error) {
@@ -44,7 +44,7 @@ function Teste({ name, email, id }: UserOwn) {
             alert("Você não pode enviar duas vezes o mesmo documento.");
             setTitle("");
             setComentario("");
-            setFileName(null);
+            setFile(null);
         }
     };
 

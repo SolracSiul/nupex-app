@@ -7,7 +7,7 @@ export interface FileData {
     _id: string;
     title: string;
     comentario: string;
-    fileName: string;
+    file: string;
     __v: number;
 }
   
@@ -49,10 +49,10 @@ function Table() {
             <tbody className="text-cyan-300">
                 {allFile ? (
                     allFile.map((file) =>(
-                        <tr key={file._id} className='bg-gray-800 cursor-pointer hover:bg-gray-600' onClick={() => viewPDf(file.fileName)}>
+                        <tr key={file._id} className='bg-gray-800 cursor-pointer hover:bg-gray-600' onClick={() => viewPDf(file.file)}>
                             <td className='border px-4 py-2'>{file._id.slice(-3)}</td>
                             <td className='border px-4 py-2'>{file.title}</td>
-                            <td className='border px-4 py-2'>{file.fileName}</td>
+                            <td className='border px-4 py-2'>{file.file}</td>
                             <td className='border px-4 py-2 text-[#bbb0b0]'>Em analíse</td>
                         </tr>
                     ))
