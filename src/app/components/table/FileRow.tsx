@@ -1,5 +1,4 @@
 'use client';
-
 import { useRouter } from 'next/navigation';
 
 interface FileRowProps {
@@ -12,6 +11,7 @@ interface FileRowProps {
 
 const FileRow: React.FC<FileRowProps> = ({ file }) => {
   const router = useRouter();
+  
 
   const handleClick = () => {
     router.push(`/history/${file._id}`);
