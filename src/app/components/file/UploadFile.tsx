@@ -1,6 +1,8 @@
 "use client"
 import axiosFetch from '@/app/axios/config';
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+
 
 interface UserOwn {
     name: String | undefined;
@@ -8,10 +10,11 @@ interface UserOwn {
     id: String | undefined;
 }
 
-function Teste({ name, email, id }: UserOwn) {
+function UploadFile({ name, email, id }: UserOwn) {
     const [title, setTitle] = useState("");
     const [comentario, setComentario] = useState("");
     const [file, setFile] = useState<File | null>(null);
+    const router = useRouter();
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -39,6 +42,7 @@ function Teste({ name, email, id }: UserOwn) {
             setFile(null);
 
             alert("Arquivo enviado com sucesso!");
+            router.replace('/history')
         } catch (error) {
             console.error("Erro ao enviar arquivo:", error);
             alert("Você não pode enviar duas vezes o mesmo documento.");
@@ -51,10 +55,10 @@ function Teste({ name, email, id }: UserOwn) {
     return (
         <div className="bg-[#f4f4f4ea] p-8 rounded-lg shadow-lg w-[400px] max-w-md">
             <form className="flex flex-col gap-4" onSubmit={submitFile}>
-                <h5 className="text-lg text-center font-bold mb-2">UPLOAD PDF</h5>
+                <h5 className="text-lg text-center font-bold mb-2">Envie seu PDF</h5>
                 <input
                     type="text"
-                    placeholder="Title"
+                    placeholder="Título"
                     required
                     className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={title}
@@ -62,7 +66,7 @@ function Teste({ name, email, id }: UserOwn) {
                 />
                 <input
                     type="text"
-                    placeholder="Comentario"
+                    placeholder="Assunto"
                     required
                     className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={comentario}
@@ -81,4 +85,4 @@ function Teste({ name, email, id }: UserOwn) {
     );
 }
 
-export default Teste;
+export default UploadFile;
